@@ -18,9 +18,20 @@ import de.chillupx.blslib.vertretungen.Vertretung;
 
 public class VertretungsplanHandler {
 	
-	public List<String> getRawLines() {
+	private Tag tag;
+	
+	public VertretungsplanHandler() {
+		this.tag = Tag.HEUTE;
+	}
+	
+	public VertretungsplanHandler(Tag tag) {
+		this.tag = tag;
+	}
+	
+	
+	private List<String> getRawLines() {
 		try {
-			URL url = new URL("http://www.bls-eschweiler.de/stupas/vp-morgen.html");
+			URL url = new URL(tag.getURL());
 			URLConnection conn = url.openConnection();
 			
 			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -44,7 +55,7 @@ public class VertretungsplanHandler {
 		return null;
 	}
 	
-	public String getTitle() {
+	public String getTitleLine() {
 		for(String line : getRawLines()) {
 			if(line.contains("<CENTER>Vertretungsplan")) return line.split("<CENTER>")[1].replaceAll("</CENTER></H3></FONT>", "").replaceAll("&uuml;", "ü");
 		}
@@ -79,7 +90,7 @@ public class VertretungsplanHandler {
 	public List<String> getVertreteneKlassen() {
 		List<String> klassen = new ArrayList<String>();
 		for(TableRow row : getVertretungenAsTable().getTableRows()) {
-			if(row.getTableDatas().size() == 1) klassen.add(row.getTableData(0).getContent());
+			if(row.getTableDatas().size() == 1) klassen.add(row.getTableData(0).getContent().replaceAll("<CENTER> <B> <FONT FACE=\"Arial\" SIZE=\"0\">", "").replaceAll("</FONT> </B> </CENTER>", "").replaceAll(" ", ""));
 		}		
 		
 		return klassen;
