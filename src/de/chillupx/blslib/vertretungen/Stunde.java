@@ -36,7 +36,11 @@ public class Stunde {
 		return fach;
 	}
 	
-	public String getRaum() {
+	public Raum getRaum() {
+		return new Raum(raum);
+	}
+	
+	public String getRaumName() {
 		return raum;
 	}
 }

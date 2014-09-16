@@ -30,6 +30,12 @@ public class TableData {
 			return false;
 	}
 	
+	/**
+	 * This method is used to get the next TD and its content
+	 * 
+	 * @param row - Input for the parser
+	 * @return List<String> - Content of each TD given in row
+	 */
 	public static List<String> getNextData(String row) {
 		List<String> datas = new ArrayList<String>();
 

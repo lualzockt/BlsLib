@@ -11,6 +11,11 @@ public class TableRow {
 		this.line = input;
 	}
 	
+	/**
+	 * This method returns all TDs in a TR
+	 * 
+	 * @return List<TableData> - List of containing TDs
+	 */
 	public List<TableData> getTableDatas() {
 		List<TableData> td = new ArrayList<TableData>();
 		for(String data : TableData.getNextData(line)) { td.add(new TableData(data)); }
@@ -18,6 +23,12 @@ public class TableRow {
 		return td;
 	}	
 	
+	/**
+	 * This method returns a TD with the given index
+	 * 
+	 * @param index - Which TD
+	 * @return TableData - TD with given index
+	 */
 	public TableData getTableData(int index) {
 		return getTableDatas().get(index);
 	}

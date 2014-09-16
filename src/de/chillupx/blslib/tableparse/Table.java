@@ -25,6 +25,11 @@ public class Table {
 		return getRawTableRows().size();
 	}
 	
+	/**
+	 * This method returns all TRs inside of a TABLE
+	 * 
+	 * @return List<String> - Content of each TR
+	 */
 	private List<String> getRawTableRows() {
 		List<String> rows = new ArrayList<String>();
 		

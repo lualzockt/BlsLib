@@ -21,12 +21,30 @@ public class Vertretung {
 		return this.stunde;
 	}
 	
-	public String getVertreteneStunde() {
+	public String getZuVertreteneStundeAsString() {
 		return this.zuVertreten;
 	}
 	
-	public String getVertretungsStunde() {
+	/**
+	 * This method returns the stunde which is ausgefallen/which fällt aus
+	 * 
+	 * @return Stunde - Stunde which is replaced with another.
+	 */
+	public Stunde getZuVertreteneStunde() {
+		return new Stunde(this.zuVertreten);
+	}
+	
+	public String getVertretungsStundeAsString() {
 		return this.vertretung;
+	}
+	
+	/**
+	 * This method returns the stunde which replaces the other one.
+	 * 
+	 * @return Stunde - Stunde which replaces the other one.
+	 */
+	public Stunde getVertretungsStunde() {
+		return new Stunde(this.vertretung);
 	}
 	
 	public String getKommentar() {

@@ -12,8 +12,10 @@ import java.util.List;
 import java.util.Map;
 
 import de.chillupx.blslib.tableparse.Table;
+import de.chillupx.blslib.tableparse.TableData;
 import de.chillupx.blslib.tableparse.TableRow;
 import de.chillupx.blslib.vertretungen.Klasse;
+import de.chillupx.blslib.vertretungen.Raum;
 import de.chillupx.blslib.vertretungen.Vertretung;
 
 public class VertretungsplanHandler {
@@ -27,7 +29,6 @@ public class VertretungsplanHandler {
 	public VertretungsplanHandler(Tag tag) {
 		this.tag = tag;
 	}
-	
 	
 	private List<String> getRawLines() {
 		try {
@@ -55,6 +56,11 @@ public class VertretungsplanHandler {
 		return null;
 	}
 	
+	/**
+	 * This method returns the title line. (Including Date/Day)
+	 * 
+	 * @return String - The title line for the vertretungsplan
+	 */
 	public String getTitleLine() {
 		for(String line : getRawLines()) {
 			if(line.contains("<CENTER>Vertretungsplan")) return line.split("<CENTER>")[1].replaceAll("</CENTER></H3></FONT>", "").replaceAll("&uuml;", "ü");
@@ -87,6 +93,11 @@ public class VertretungsplanHandler {
 		return tables;
 	}
 	
+	/**
+	 * This method returns a list of all class names
+	 * 
+	 * @return List<String> - List of all vertretene klassen
+	 */
 	public List<String> getVertreteneKlassen() {
 		List<String> klassen = new ArrayList<String>();
 		for(TableRow row : getVertretungenAsTable().getTableRows()) {
@@ -96,6 +107,11 @@ public class VertretungsplanHandler {
 		return klassen;
 	}
 	
+	/**
+	 * This method returns all vertretung for the given klasse
+	 * 
+	 * @return Map<String, List<Vertretung>> - key = klassen name, value = list of all vertretung
+	 */
 	public Map<String, List<Vertretung>> getVertretungen() {
 		Map<String, List<Vertretung>> verts = new HashMap<String, List<Vertretung>>();
 		
@@ -142,11 +158,16 @@ public class VertretungsplanHandler {
 		}
 	}
 	
-	public Table getFehlendeRaeume() {
+	@Deprecated
+	public List<Raum> getFehlendeRaeume() {
+		List<Raum> roomz = new ArrayList<Raum>();
+		
 		if(getTables().size() > 1) {
-			return getTables().get(0);
+			for(TableData data : getTables().get(0).getTableRow(0).getTableDatas()) {
+				roomz.add(new Raum(data.getContent()));
+			}
 		}
 		
-		return null;
+		return roomz;
 	}
 }
