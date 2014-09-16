@@ -3,5 +3,5 @@ BlsLib
 
 BLS Vertretungsplan Library
 
-*Documentation coming soon*
+*Docs coming soon*
 
