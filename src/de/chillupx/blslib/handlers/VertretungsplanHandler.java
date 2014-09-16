@@ -105,7 +105,11 @@ public class VertretungsplanHandler {
 				lastKlasse = new Klasse(row.getTableData(0).getContent().replaceAll("<CENTER> <B> <FONT FACE=\"Arial\" SIZE=\"0\">", "").replaceAll("</FONT> </B> </CENTER>", "").replaceAll(" ", ""));
 			}
 			else {
-				Vertretung newVert = new Vertretung(lastKlasse, row.getTableData(0).getContent(), row.getTableData(1).getContent(), row.getTableData(3).getContent(), row.getTableData(4).getContent());
+				Vertretung newVert = new Vertretung(lastKlasse, 
+						row.getTableData(0).getContent().split(">")[2].replaceAll("</FONT", ""), 
+						row.getTableData(1).getContent().split(">")[2].replaceAll("</FONT", ""),
+						row.getTableData(3).getContent().split(">")[2].replaceAll("</FONT", ""), 
+						row.getTableData(4).getContent());
 				
 				if(verts.containsKey(lastKlasse.getName())) {
 					List<Vertretung> currVerts = verts.get(lastKlasse.getName());
